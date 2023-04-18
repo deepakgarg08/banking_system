@@ -1,107 +1,71 @@
-const express = require('express')
-// const body = require('body-parser')
-const mongoose = require('mongoose')
-const app = express()
-const Posts = require('./model/mongoscheme')
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+const Posts = require("./model/mongoscheme");
+const PORT = process.env.PORT || 3000;
+require("dotenv").config();
 
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// Mongodb connection
+let uri = process.env.MONGODB_URL;
+mongoose.connect(
+  uri,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    if (err) console.log("error connecting the mongodb" + err);
+    else console.log("connection is successful.");
+  }
+);
 
+//APIS
 
+app.get("/", (req, res) => {
+  res.send("Welcome to nodejs + express banking app ");
+});
 
-let uri = "mongodb+srv://deepakgarg08:92119211@cluster0-zr3gu.mongodb.net/LakshayDb?retryWrites=true";
+// for new user - account opening
+app.post("/new", (req, res) => {
+  console.log(`please send username, password, initial_balance in post `);
+  const { initial_balance } = req.body;
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-    if (err) console.log('error connecting the mongodb' + err)
-    else console.log('connection is successful.')
-})
+  if (initial_balance < 2000) {
+    return res.send("You are poor to afford account in our bank");
+  }
+  let user = new Posts(req.body);
+  user
+    .save()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => res.json(err));
+});
 
+//
+app.listen(PORT, (e) => {
+  if (e) console.log("err occured", e);
+  console.log("server started at port : ", PORT);
+});
 
-app.get('/', (req, res) => {
+// app.post("/deposit", (req, res) => {
+//   console.log("req", req.body);
 
-    res.send('Welcome ')
+//   res.send("deposit");
+// });
 
-})
+// app.post("/withdraw", (req, res) => {
+//   res.send("withdraw");
+// });
 
-app.post('/new', (req, res) => {
-    // console.log('req', req.body)
-    const { initial_balance } = req.body
+// app.patch("/changeuserdetaild", (req, res) => {
+//   res.send("changeuserdetaild");
+// });
 
-    if (initial_balance < 2000) {
-        return res.send('bhag yha sei...gareeb sala')
-    }
-    let user = new Posts(req.body)
-    user.save().then(data => {
-        res.json(data)
-    }).catch(err => res.json(err))
+// app.delete("/delete", (req, res) => {
+//   res.send("delete");
+// });
 
-
-
-
-})
-
-
-
-app.post('/deposit', (req, res) => {
-    console.log('req', req.body)
-
-    
-    res.send('deposit')
-
-})
-
-app.post('/withdraw', (req, res) => {
-
-    res.send('withdraw')
-
-})
-
-app.patch('/changeuserdetaild', (req, res) => {
-
-    res.send('changeuserdetaild')
-
-})
-
-app.delete('/delete', (req, res) => {
-
-    res.send('delete')
-
-})
-
-app.get('/checkbalance', (req, res) => {
-
-    res.send('checkbalance')
-
-})
-
-
-app.listen("3000", e => console.log("server started at port 3000 "))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// app.get("/checkbalance", (req, res) => {
+//   res.send("checkbalance");
+// });

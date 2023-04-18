@@ -126,12 +126,12 @@
 
 
 //variable name....
-camelCasing
+// camelCasing
 
-headMaster
-classs... headMaster
+// headMaster
+// classs... headMaster
 
-head_master
+// head_master
 
 
 //ps aux | grep node
@@ -144,7 +144,7 @@ head_master
 
 //how to run
 
-go to package.json directory
-npm install or npm i  or yarn install 
+// go to package.json directory
+// npm install or npm i  or yarn install 
 
 //node filename

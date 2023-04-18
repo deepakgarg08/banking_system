@@ -1,18 +1,19 @@
 {
   "name": "nodeproject",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "This is demo nodejs + express boiler plate code for a banking app",
+  "main": "app.js",
   "scripts": {
-    "test": "nodemon"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Deepak Garg",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^16.0.3",
     "express": "^4.17.1",
-    "mongoose": "^5.9.16",
-    "nodemon": "^2.0.4"
+    "mongoose": "^5.9.16"
   }
 }
