@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = express();
 const Posts = require("./model/mongoscheme");
 const PORT = process.env.PORT || 3000;
+console.log('PORT: ', PORT);
 require("dotenv").config();
 
 app.use(express.json());
