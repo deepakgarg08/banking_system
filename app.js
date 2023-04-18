@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Mongodb connection
-let uri = process.env.MONGODB_URL;
+let uri = process.env.MONGODB_URL || "mongodb+srv://mysticresearcher:mysticresearcher123@cluster0.we2xn.mongodb.net/banking-demo";
 mongoose.connect(
   uri,
   { useNewUrlParser: true, useUnifiedTopology: true },
