@@ -3,14 +3,16 @@ const mongoose = require("mongoose");
 const app = express();
 const Posts = require("./model/mongoscheme");
 const PORT = process.env.PORT || 3000;
-console.log('PORT: ', PORT);
 require("dotenv").config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Mongodb connection
-let uri = process.env.MONGODB_URL || "mongodb+srv://mysticresearcher:mysticresearcher123@cluster0.we2xn.mongodb.net/banking-demo";
+let uri = process.env.MONGODB_URL // || "mongodb+srv://mysticresearcher:mysticresearcher123@cluster0.we2xn.mongodb.net/banking-demo";
+console.log('uri: ', uri);
+console.log('PORT: ', PORT);
+
 mongoose.connect(
   uri,
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -23,6 +25,7 @@ mongoose.connect(
 //APIS
 
 app.get("/", (req, res) => {
+  console.log("inside / route")
   res.send("Welcome to nodejs + express banking app ");
 });
 
